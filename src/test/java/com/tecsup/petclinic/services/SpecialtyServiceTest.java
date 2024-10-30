@@ -38,4 +38,14 @@ public class SpecialtyServiceTest {
 		assertNotNull(createdSpeciality);
 		assertEquals("Cardiology", createdSpeciality.getName());
 	}
+
+	@Test
+	public void testUpdateSpeciality() {
+		Speciality speciality = new Speciality(1, "Cardiology");
+		when(specialtyRepository.save(speciality)).thenReturn(speciality);
+
+		Speciality updatedSpeciality = specialtyService.update(speciality);
+		assertNotNull(updatedSpeciality);
+		assertEquals("Cardiology", updatedSpeciality.getName());
+	}
 }
