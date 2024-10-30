@@ -48,4 +48,24 @@ public class SpecialtyServiceTest {
 		assertNotNull(updatedSpeciality);
 		assertEquals("Cardiology", updatedSpeciality.getName());
 	}
+	@Test
+	public void testDeleteSpeciality() throws SpecialityNotFoundException {
+		Speciality speciality = new Speciality(1, "Cardiology");
+		when(specialtyRepository.findById(1)).thenReturn(Optional.of(speciality));
+
+		specialtyService.delete(1);
+		verify(specialtyRepository, times(1)).delete(speciality);
+	}
+
+	@Test
+	public void testFindAllSpecialities() {
+		List<Speciality> specialities = new ArrayList<>();
+		specialities.add(new Speciality(1, "Cardiology"));
+		specialities.add(new Speciality(2, "Dermatology"));
+
+		when(specialtyRepository.findAll()).thenReturn(specialities);
+
+		List<Speciality> foundSpecialities = specialtyService.findAll();
+		assertEquals(2, foundSpecialities.size());
+	}
 }
